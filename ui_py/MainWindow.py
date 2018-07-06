@@ -80,6 +80,9 @@ class Ui_MainWindow(object):
 		MainWindow.setStatusBar(self.statusbar)
 		self.actionQuit = QtWidgets.QAction(MainWindow)
 		self.actionQuit.setObjectName("actionQuit")
+		self.actionQuit.setShortcut('Ctrl+Q')
+		self.actionQuit.triggered.connect(self.close_application)
+		
 		self.menuFile.addAction(self.actionQuit)
 		self.menubar.addAction(self.menuFile.menuAction())
 
@@ -88,6 +91,11 @@ class Ui_MainWindow(object):
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 		self.pushButtonStream.clicked.connect(self.push_button_stream)
+		self.progressBarStream.setValue(0)
+
+	def close_application(self):
+		print("Exiting Application")
+		sys.exit()
 
 	def push_button_stream(self):
 		tweets_filename = "new_tweets.json"
@@ -114,8 +122,8 @@ class Ui_MainWindow(object):
 		self.pushButtonDataframe.setText(_translate("MainWindow", "Print Dataframe to console"))
 		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabLiveTweets), _translate("MainWindow", "Live Tweets"))
 		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabUserTweets), _translate("MainWindow", "User Tweets"))
-		self.menuFile.setTitle(_translate("MainWindow", "File"))
-		self.actionQuit.setText(_translate("MainWindow", "Quit"))
+		self.menuFile.setTitle(_translate("MainWindow", "&File"))
+		self.actionQuit.setText(_translate("MainWindow", "&Quit"))
 
 
 if __name__ == "__main__":
